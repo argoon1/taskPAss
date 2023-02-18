@@ -21,7 +21,6 @@ export function getPasswordInputMessage(
     .split("")
     .filter((_, idx) => !hiddenIdx.includes(idx))
     .join("");
-  console.log(answerPasswordString, correctAnswerPasswordFields);
   if (correctAnswerPasswordFields.length === answerPasswordString.length) {
     if (correctAnswerPasswordFields === answerPasswordString)
       return "your password is correct";

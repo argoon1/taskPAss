@@ -18,8 +18,6 @@ const PasswordSingleInput = ({
     updateUserAnswer((prevAnswer) => {
       const curAns = [...prevAnswer];
       curAns[inputIdx] = char;
-      console.log(prevAnswer);
-      console.log(prevAnswer.join(""));
       return curAns;
     });
   }

@@ -27,6 +27,7 @@ export const PasswordInput = ({ password }: PassswordInputProps) => {
           inputIdx={idx}
           isPasswordVisible={isPasswordVisible}
           updateUserAnswer={setUserPasswordAnswerInput}
+          key={idx}
         />
       ))}
       <label>
