@@ -5,6 +5,8 @@ interface PasswordSingleInputProps {
   inputIdx: number;
   isPasswordVisible: boolean;
   updateUserAnswer: (val: string[] | ((prev: string[]) => string[])) => void;
+  refInputs: React.RefObject<HTMLInputElement>[];
+  hiddenPasswordIndexes: number[];
 }
 
 const PasswordSingleInput = ({
@@ -13,8 +15,20 @@ const PasswordSingleInput = ({
   inputIdx,
   isPasswordVisible,
   updateUserAnswer,
+  refInputs,
+  hiddenPasswordIndexes,
 }: PasswordSingleInputProps) => {
   function updateAnswerBasedOnInput(char: string) {
+    if (char) {
+      const visibleInputs = Array.from(
+        { length: refInputs.length },
+        (_, i) => i
+      ).filter((visIdx) => !hiddenPasswordIndexes.includes(visIdx));
+      const curInputIdx = visibleInputs.indexOf(inputIdx);
+      if (curInputIdx < visibleInputs.length - 1) {
+        refInputs[visibleInputs[curInputIdx + 1]].current?.focus();
+      }
+    }
     updateUserAnswer((prevAnswer) => {
       const curAns = [...prevAnswer];
       curAns[inputIdx] = char;
@@ -28,6 +42,7 @@ const PasswordSingleInput = ({
       }`}
     >
       <input
+        ref={refInputs[inputIdx]}
         type={isPasswordVisible ? "text" : "password"}
         disabled={isDisabled}
         maxLength={1}

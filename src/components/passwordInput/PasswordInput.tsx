@@ -4,7 +4,7 @@ import {
   generateHiddenPasswordIndexes,
   getPasswordInputMessage,
 } from "./passwordInputUtils";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, createRef } from "react";
 interface PassswordInputProps {
   password: string;
 }
@@ -18,6 +18,9 @@ export const PasswordInput = ({ password }: PassswordInputProps) => {
     string[]
   >([]);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [inputRefsArray, _] = useState(() =>
+    Array.from({ length: password.length }, () => createRef<HTMLInputElement>())
+  );
   return (
     <>
       {password.split("").map((char, idx) => (
@@ -28,6 +31,8 @@ export const PasswordInput = ({ password }: PassswordInputProps) => {
           isPasswordVisible={isPasswordVisible}
           updateUserAnswer={setUserPasswordAnswerInput}
           key={idx}
+          refInputs={inputRefsArray}
+          hiddenPasswordIndexes={hiddenPasswordIndexes}
         />
       ))}
       <label>

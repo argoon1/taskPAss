@@ -9,7 +9,7 @@ export function generateHiddenPasswordIndexes(password: string): number[] {
     numbers.add(randomNumber);
   }
 
-  return Array.from(numbers) as number[];
+  return Array.from(numbers).sort() as number[];
 }
 export function getPasswordInputMessage(
   password: string,
